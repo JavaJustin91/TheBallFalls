@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEditor;
+
+#if UNITY_EDITOR
+using UnityEngine.UI;
+#endif
 
 public class GameManager : MonoBehaviour
 {
@@ -14,5 +20,20 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void QuitGame()
+    {
+    #if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+    #else
+        Application.Quit();
+    #endif
+     
     }
 }
