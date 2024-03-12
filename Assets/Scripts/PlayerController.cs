@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Create public variables for player speed, and for the Text UI game objects
 	public float speed;
+	public int health = 10;
 	//public Text countText;
 	//public Text winText;
 
@@ -77,5 +78,10 @@ public class PlayerController : MonoBehaviour {
 			// Set the text value of our 'winText'
 			//winText.text = "You Win!";
 		}
+	}
+
+	public void TakeDamage()
+	{
+		health--;
 	}
 }

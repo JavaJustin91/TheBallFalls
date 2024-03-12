@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     //  ++++++++++++++++++++ SAVE FUNCTIONALITY (will need connected) ++++++++++++++++++++
     // [System.Serializable]
     // class SaveData
