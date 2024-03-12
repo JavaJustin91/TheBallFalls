@@ -35,7 +35,34 @@ public class GameManager : MonoBehaviour
 
     public void MainMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
+    }
+
+    public void PauseGame(GameObject pauseOverlay)
+    {
+        Time.timeScale = 0;
+        pauseOverlay.SetActive(true);
+    }
+
+    public void ResumeGame(GameObject pauseOverlay)
+    {
+        Time.timeScale = 1;
+        pauseOverlay.SetActive(false);
+    }
+
+    public void RetryLevel()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GameOver(GameObject gameOverOverlay)
+    {
+        // May want to create a transition here
+        // for when we setup a crashing animation
+        Time.timeScale = 0;
+        gameOverOverlay.SetActive(true);
     }
 
     public void QuitGame()
@@ -45,11 +72,6 @@ public class GameManager : MonoBehaviour
 #else
         Application.Quit();
 #endif
-    }
-
-    public void RetryLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     //  ++++++++++++++++++++ SAVE FUNCTIONALITY (will need connected) ++++++++++++++++++++
