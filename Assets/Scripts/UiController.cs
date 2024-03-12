@@ -32,12 +32,6 @@ public class UiController : MonoBehaviour
 
     public void ReturnToMain()
     {
-        Time.timeScale = 1;
         GameManager.Instance.MainMenu();
-    }
-
-    public void QuitGame()
-    {
-        GameManager.Instance.QuitGame();
     }
 }
