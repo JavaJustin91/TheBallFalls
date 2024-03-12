@@ -1,23 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UiController : MonoBehaviour
 {
 
-    public GameObject pausedTitle;
-    public Button resumeButton;
-    public Button quitButton;
-    public GameObject blur;
-
-    private GameManager gameManager;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
+    public GameObject pauseOverlay;
 
     // Update is called once per frame
     void Update()
@@ -31,18 +21,17 @@ public class UiController : MonoBehaviour
     void PauseGame()
     {
         Time.timeScale = 0;
-        pausedTitle.SetActive(true);
-        resumeButton.gameObject.SetActive(true);
-        quitButton.gameObject.SetActive(true);
-        blur.SetActive(true);
+        pauseOverlay.SetActive(true);
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
-        pausedTitle.SetActive(false);
-        resumeButton.gameObject.SetActive(false);
-        quitButton.gameObject.SetActive(false);
-        blur.SetActive(false);
+        pauseOverlay.SetActive(false);
+    }
+
+    public void ReturnToMain()
+    {
+        GameManager.Instance.MainMenu();
     }
 }
