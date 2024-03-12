@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+// using System.IO;
 
 #if UNITY_EDITOR
 using UnityEngine.UI;
@@ -12,8 +13,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-
-    // private bool isPlaying = false;
+    // Data to save
+    // private int highestLevel;
 
     void Awake()
     {
@@ -40,32 +41,30 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
 #if UNITY_EDITOR
-            EditorApplication.ExitPlaymode();
+        EditorApplication.ExitPlaymode();
 #else
         Application.Quit();
 #endif
     }
 
-    //      ++++++++++++++++++++ SAVE FUNCTIONALITY (will need changed) ++++++++++++++++++++
+    //  ++++++++++++++++++++ SAVE FUNCTIONALITY (will need connected) ++++++++++++++++++++
     // [System.Serializable]
     // class SaveData
     // {
-    //     public int score;
-    //     public string name;
+    //     public int highestLevel;
     // }
 
-    // public void SaveTopScore(int scoreToSave, string nameToSave)
+    // public void SaveHighestLevel(int levelToSave)
     // {
     //     SaveData data = new SaveData();
-    //     data.score = scoreToSave;
-    //     data.name = nameToSave;
+    //     data.highestLevel = levelToSave;
 
     //     string json = JsonUtility.ToJson(data);
 
     //     File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     // }
 
-    // public void LoadTopScore()
+    // public void LoadHighestLevel()
     // {
     //     string path = Application.persistentDataPath + "/savefile.json";
     //     if (File.Exists(path))
@@ -73,8 +72,7 @@ public class GameManager : MonoBehaviour
     //         string json = File.ReadAllText(path);
     //         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-    //         highScore = data.score;
-    //         highScorePlayer = data.name;
+    //         highestLevel = data.highestLevel;
     //     }
     // }
 }
