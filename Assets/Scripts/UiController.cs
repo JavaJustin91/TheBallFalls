@@ -6,19 +6,45 @@ using UnityEngine.UI;
 
 public class UiController : MonoBehaviour
 {
+    public PlayerController player;
+    public Slider healthSlider;
 
+    public GameObject gameOverOverlay;
     public GameObject pauseOverlay;
 
-    // Update is called once per frame
+    void Start()
+    {
+        player.GetComponent<PlayerController>();
+    }
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        healthSlider.value = player.health;
+
+        if(player.health <= 0)
+        {
+            GameOver();
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            player.TakeDamage();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
         }
     }
 
-    void PauseGame()
+    public void GameOver()
+    {
+        // May want to create a transition/wait here
+        // for when we setup a crashing animation
+        gameOverOverlay.SetActive(true);
+    }
+
+    public void PauseGame()
     {
         Time.timeScale = 0;
         pauseOverlay.SetActive(true);
@@ -30,14 +56,15 @@ public class UiController : MonoBehaviour
         pauseOverlay.SetActive(false);
     }
 
-    public void ReturnToMain()
+    public void MainMenu()
     {
-        Time.timeScale = 1;
-        GameManager.Instance.MainMenu();
+        SceneManager.LoadScene(0);
     }
 
-    public void QuitGame()
+    public void ReloadLevel()
     {
-        GameManager.Instance.QuitGame();
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);
     }
+
 }
