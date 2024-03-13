@@ -23,7 +23,7 @@ public class UiController : MonoBehaviour
 
         if(player.health <= 0)
         {
-            GameManager.Instance.GameOver(gameOverOverlay);
+            GameOver();
         }
 
         if (Input.GetKeyDown(KeyCode.O))
@@ -33,8 +33,38 @@ public class UiController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameManager.Instance.PauseGame(pauseOverlay);
+            PauseGame();
         }
     }
-    
+
+    public void GameOver()
+    {
+        // May want to create a transition/wait here
+        // for when we setup a crashing animation
+        gameOverOverlay.SetActive(true);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pauseOverlay.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        pauseOverlay.SetActive(false);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ReloadLevel()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);
+    }
+
 }

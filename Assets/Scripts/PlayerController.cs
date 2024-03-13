@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour {
 	// Each physics step..
 	void FixedUpdate ()
 	{
+		if(health > 0)
+		{
 		// Set some local float variables equal to the value of our Horizontal and Vertical Inputs
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 		// Add a physical force to our Player rigidbody using our 'movement' Vector3 above, 
 		// multiplying it by 'speed' - our public player speed that appears in the inspector
 		rb.AddForce (movement * speed);
+		}
 	}
 
 	// When this game object intersects a collider with 'is trigger' checked, 
@@ -82,6 +85,6 @@ public class PlayerController : MonoBehaviour {
 
 	public void TakeDamage()
 	{
-		health--;
+		health-= 5;
 	}
 }
