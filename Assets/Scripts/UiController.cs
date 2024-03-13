@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,17 +12,19 @@ public class UiController : MonoBehaviour
 
     public GameObject gameOverOverlay;
     public GameObject pauseOverlay;
+    public GameObject goalOverlay;
 
-    void Start()
-    {
-        player.GetComponent<PlayerController>();
-    }
+    public GameObject nextLevelButton;
 
     void Update()
     {
         healthSlider.value = player.health;
 
-        if(player.health <= 0)
+        if(player.hitKillBox)
+        {
+            ReloadLevel();
+        } 
+        else if(player.health <= 0)
         {
             GameOver();
         }
@@ -34,6 +37,16 @@ public class UiController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
+        }
+
+        if(player.hitGoal)
+        {
+            goalOverlay.SetActive(true);
+            int currentLevel = SceneManager.GetActiveScene().buildIndex;
+            if (currentLevel == SceneManager.sceneCountInBuildSettings - 1)
+            {
+                nextLevelButton.SetActive(false);
+            }
         }
     }
 
@@ -65,6 +78,12 @@ public class UiController : MonoBehaviour
     {
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);
+    }
+
+    public void NextLevel()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentLevel + 1, LoadSceneMode.Single);
     }
 
 }
