@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
-	
+public class PlayerController : MonoBehaviour 
+{
+	public int health = 10;
+	public bool hitGoal = false;
+	public bool hitKillBox = false;
+
 	// Create public variables for player speed, and for the Text UI game objects
 	public float speed;
-	public int health = 10;
 	//public Text countText;
 	//public Text winText;
 
@@ -51,24 +54,6 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	// When this game object intersects a collider with 'is trigger' checked, 
-	// store a reference to that collider in a variable named 'other'..
-	void OnTriggerEnter(Collider other) 
-	{
-		// ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
-		if (other.gameObject.CompareTag ("Pick Up"))
-		{
-			// Make the other game object (the pick up) inactive, to make it disappear
-			other.gameObject.SetActive (false);
-
-			// Add one to the score variable 'count'
-			count = count + 1;
-
-			// Run the 'SetCountText()' function (see below)
-			SetCountText ();
-		}
-	}
-
 	// Create a standalone function that can update the 'countText' UI and check if the required amount to win has been achieved
 	void SetCountText()
 	{
@@ -87,4 +72,40 @@ public class PlayerController : MonoBehaviour {
 	{
 		health-= 5;
 	}
+
+	public void CalculateFallDamage()
+	{
+		
+	}
+
+	// When this game object intersects a collider with 'is trigger' checked, 
+	// store a reference to that collider in a variable named 'other'..
+	void OnTriggerEnter(Collider other)
+	{
+		// ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
+		if (other.gameObject.CompareTag("Pick Up"))
+		{
+			// Make the other game object (the pick up) inactive, to make it disappear
+			other.gameObject.SetActive(false);
+
+			// Add one to the score variable 'count'
+			count = count + 1;
+
+			// Run the 'SetCountText()' function (see below)
+			SetCountText();
+		}
+		else if(other.gameObject.CompareTag("KillBox"))
+		{
+			hitKillBox = true;
+		}
+	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.CompareTag("Goal"))
+		{
+			hitGoal = true;
+		}
+	}
+
 }
